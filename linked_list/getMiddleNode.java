@@ -13,7 +13,7 @@ public class getMiddleNode {
 		node twice;
 		node single;
 		twice = single = head;
-		while(twice.next!=null && twice.next.next!=null){
+		while(twice.next!=null && twice!=null){
 			twice = twice.next.next;
 			single = single.next;
 		}
