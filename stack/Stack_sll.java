@@ -5,26 +5,30 @@ package stack;
 //no notion of capacity in ssl_stack, overflow in not possible only underflow
 //http://geeksquiz.com/stack-set-1/
 
-class stackNode{
-	int data;
+class stackNode<T>{
+	T data;
 	stackNode next;
-	stackNode(int data){
+	stackNode(T data){
 		this.data = data;
 		next = null; 
 	}
 }
 
-class Stack{
-	private stackNode root = null;
-	private int count;
+class Stack<T>{
+	private stackNode<T> root = null;
 	
-	Stack(){}
+	Stack(){
+	}
 	
-	Stack(int data){
+	Stack(T data){
 		root = new stackNode(data);
 	}
 	
-	public void push(int data){
+	public boolean isEmpty(){
+		return (root==null);
+	}
+	
+	public void push(T data){
 		if(root==null){
 			root = new stackNode(data);
 			return;
@@ -32,32 +36,36 @@ class Stack{
 		stackNode newNode = new stackNode(data);
 		newNode.next = root;
 		root = newNode;
-		count++;
 	}
 	
-	public int pop(){
+	public T pop(){
 		if(root==null){
 			System.out.println("underflow");
-			return Integer.MIN_VALUE;
+			return null;
 		}
-		int popvalue = root.data;
+		T popvalue = root.data;
 		root = root.next;
-		count--;
 		return popvalue;
 	}
 	
 	public int getCount(){
+		stackNode curr = root;
+		int count = 0;
+		while(curr!=null){
+			count++;
+			curr=curr.next;
+		}
 		return count;
 	}
 	
-	public int peek(){
+	public T peek(){
 		return root.data;
 	}
 	
 	public void print(){
 		stackNode curr = root;
 		while(curr!=null){
-			System.out.print(curr.data+" ");
+			System.out.print(curr.data.toString()+" ");
 			curr=curr.next;
 		}
 		System.out.println();
@@ -67,13 +75,18 @@ class Stack{
 public class Stack_sll {
 	
 	public static void main(String args[]){
-		Stack s = new Stack(1);
+		Stack<Integer> s = new Stack<Integer>(1);
 		s.push(39);
 		s.print();
 		s.push(23);
 		s.print();
 		System.out.println(s.peek());
 		System.out.println(s.pop());
+		
+		Stack<String> s2 = new Stack<String>("gautham");
+		s2.push("farina");
+		s2.print();
+		System.out.println(s2.pop());
 	}
 
 }
