@@ -14,7 +14,7 @@ public class largestPrime {
 			n += arr[i]*val;
 			val*=10;
 		}
-		//System.out.println(n);
+		System.out.println(n);
 		int sq = (int)Math.sqrt(n);
 		for(int i=2;i<=sq;i++){
 			if(n%i==0){
@@ -26,22 +26,31 @@ public class largestPrime {
 		return true;
 	}
 	public static void findPrime(int index,int[] arr){
-		
+		int temp[];
 		if(index!=arr.length-1){
+			temp = arr.clone();
 			findPrime(index+1,arr);
+			arr = temp;
+		}
+		else{
+			isPrime(arr);
 		}
 		
 		if(!found){
-			for(int j=arr.length-1;j>index;j--){
-				found = isPrime(arr);
-				swap(arr,index,j);
+			
+			for(int j=index+1;j<arr.length&& !found;j++){
+				arr = swap(arr,index,j);
+				temp = arr.clone();
 				findPrime(index+1,arr);
+				arr = temp;
 			}
+		
 		}
+
 	}
 	
 	public static int[] swap(int[] arr,int i,int j){
-		if(i<j){
+		if(i!=j){
 			arr[i] = arr[i]+arr[j];
 			arr[j] = arr[i] - arr[j];
 			arr[i] = arr[i] - arr[j];
